@@ -1,0 +1,68 @@
+<div class="container">
+
+
+<div *ngIf="isLoading" style="text-align: center">
+  <h3>Loading...</h3>
+  <app-loading></app-loading>
+</div>
+
+<div *ngIf="!isLoading">
+
+<div class="currency-container">
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+
+
+<div class="currency-input">
+<mat-form-field appearance="fill">
+  <mat-label>From</mat-label>
+  <mat-select [(ngModel)]="selectedValue" (selectionChange)="changeClient($event.value)">
+    <mat-option *ngFor="let currency of currencies" [value]="currency.type">
+      {{currency.type}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+  <br/>
+<mat-form-field class="example-full-width">
+  <mat-label>Sell</mat-label>
+<!--  <input matInput placeholder="Your currency" [ngModel]="from"  (ngModelChange)="from = $event"-->
+  <input matInput placeholder="Your currency" [(ngModel)]="inputCurrency"  (ngModelChange)="from = $event"
+         (input)="onSearchChange($event.target.value)"  type="number" pattern="[0-9]*\.?[0-9]*$" #inputFrom="ngModel" >
+  <div class="alert alert-danger" *ngIf="!inputFrom.valid || inputFrom.errors && (inputFrom.touched || inputFrom.dirty)">
+    Number must be positive
+  </div>
+<!--  <input matInput placeholder="Your currency" [ngModel]="from" (ngModelChange)="from = $event" type="number">-->
+</mat-form-field>
+
+</div>
+      </mat-grid-tile>
+
+    <mat-grid-tile>
+<div class="currency-input">
+  <mat-form-field appearance="fill">
+    <mat-label>To</mat-label>
+    <mat-select [(ngModel)]="selectedValue2" (selectionChange)="changeClient2($event.value)">
+      <mat-option *ngFor="let currency of currencies" [value]="currency.type" >
+        {{currency.type}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br/>
+  <mat-form-field class="example-full-width">
+    <mat-label>Buy</mat-label>
+    <input matInput placeholder="Currency to exchange" [(ngModel)]="to" (ngModelChange)="to = $event" type="number" disabled>
+<!--    <input matInput placeholder="Currency to exchange" value="{{from}}" type="number" disabled>-->
+
+
+  </mat-form-field>
+</div>
+</mat-grid-tile>
+
+  </mat-grid-list>
+  <button mat-raised-button class="green" (click)="onOrder()">Order</button>
+
+</div>
+
+</div>
+
+</div>

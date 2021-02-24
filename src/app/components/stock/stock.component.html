@@ -1,0 +1,31 @@
+<div class="container">
+<div *ngIf="isLoading === true" style="text-align: center">
+  <h3>Loading...</h3>
+  <app-loading></app-loading>
+</div>
+
+
+<div *ngIf="!isLoading">
+  <div *ngFor="let stock of stocks; let reqI = index" class="center">
+    <div *ngIf="stocksCopy.length === 0">
+      <span>{{stock.company}}&nbsp;{{stock.price}}</span>
+    </div>
+
+    <div *ngFor="let stockC of stocksCopy; let stockI = index">
+      <div *ngIf="reqI == stockI">
+      <div *ngIf="stock.price > stockC.price">
+        <span class="text-green">{{stock.company}}&nbsp;{{stock.price}}</span>
+      </div>
+      <div *ngIf="stock.price < stockC.price">
+        <span class="text-red">{{stock.company}}&nbsp;{{stock.price}}</span>
+      </div>
+      <div *ngIf="stock.price == stockC.price">
+        <span>{{stock.company}}&nbsp;{{stock.price}}</span>
+      </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
